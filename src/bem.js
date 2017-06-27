@@ -1,9 +1,16 @@
 export default function createBem(blockName, allowedModifiers = []) {
+  if (!blockName || typeof blockName !== 'string') {
+    throw 'Block name must be a string';
+  }
+
   return {
     block: (passedModifiers = {}) => [blockName]
       .concat(getBlockModifiersClassesFromObj(passedModifiers))
       .join(' '),
     element: (elementName, passedModifiers = {}) => {
+      if (!elementName || typeof elementName !== 'string') {
+        throw 'Element name must be a string';
+      }
       return [getElementClass(elementName)]
         .concat(getElementModifiersClassesFromObj(elementName, passedModifiers))
         .join(' ');
